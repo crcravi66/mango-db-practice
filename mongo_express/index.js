@@ -18,10 +18,22 @@ mongoose.connect('mongodb://127.0.0.1:27017/formStand')
 
 app.set('views',path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.use(express.urlencoded({extended : true}))
 
 app.get('/products', async (req, res)=>{
     const products =  await product.find({})
     res.render('products/index', { products })
+})
+
+app.get('/products/new', (req, res) => {
+    res.render('products/new')
+})
+
+app.post('/products', async  (req, res) => {
+    const newProduct = new product(req.body);
+    await newProduct.save();
+    console.log(newProduct)
+    res.redirect(`/products/${newProduct._id}`)
 })
 
 app.get('/products/:id', async (req, res) => {
@@ -30,6 +42,6 @@ app.get('/products/:id', async (req, res) => {
     res.render('products/show', { products})
 })
 
-app.listen(3000, () => {
-    console.log("App is listerning on port 3000");
+app.listen(5000, () => {
+    console.log("App is listerning on port 5000");
 })  
