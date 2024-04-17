@@ -60,6 +60,13 @@ app.put('/products/:id', async (req, res) => {
     res.redirect(`/products/${products._id}`);  
 })
 
+app.delete('/products/:id', async (req, res) => {
+    const {id} = req.params;    
+    const delProduct = await product.findByIdAndDelete(id);
+    res.redirect('/products');
+
+})
+
 app.listen(5000, () => {
     console.log("App is listerning on port 5000");
 })  
