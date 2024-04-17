@@ -14,9 +14,9 @@
         <input type="number" name="price" placeholder="product price" id="price" value="<%= editProduct.price %>">
         <label for="Category"> Selelct Category</label>
         <select name="category" id="Category">
-            <option value="fruit">fruit</option>
-            <option value="vegetable">vegetable</option>
-            <option value="dairy">dairy</option>
+            <% for(let category of categories) { %>
+                <option value="<%=category%>" <%= editProduct.category === category ? 'Selected' : '' %>><%=category%></option>    
+            <% } %>
         </select>
         <button>submit</button>
     </form>
